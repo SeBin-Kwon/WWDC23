@@ -2,7 +2,9 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        
+        @State var rootIsActive: Bool = false
+//        @State var firstNaviLinkActive = false
+//        @Binding var tododata: [ListItem]
             
             NavigationView {
                 VStack {
@@ -11,9 +13,10 @@ struct ContentView: View {
                     .fontWeight(.ultraLight)
                     .padding(.top, 150.0)
                     .padding(.bottom, 350.0)
+                // 레벨마다 이미지 다르게 넣기
                 Image("seed")
                 Spacer()
-                NavigationLink(destination: CreateView()) {
+                    NavigationLink(destination: CreateView(rootIsActive: $rootIsActive), isActive: $rootIsActive) {
                     Text("Start")
                         .font(.custom("HelveticaNeue", size: 40))
                         .fontWeight(.light)

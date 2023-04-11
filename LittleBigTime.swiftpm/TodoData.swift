@@ -8,6 +8,7 @@
 import Foundation
 
 struct TodoData {
-    var todo: [String]
-    var time: [Int]
+    let id: String = UUID().uuidString
+    var todo: String
+    var time: Int
 }
