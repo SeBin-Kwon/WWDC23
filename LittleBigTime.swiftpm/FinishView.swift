@@ -9,11 +9,11 @@ import SwiftUI
 
 struct FinishView: View {
     @Binding var time: Int
-    @Binding var rootIsActive: Bool
+//    @Binding var rootIsActive: Bool
     
     init(time: Binding<Int> = .constant(0), rootIsActive: Binding<Bool> = .constant(false)) {
         _time = time
-        _rootIsActive = rootIsActive
+//        _rootIsActive = rootIsActive
     }
 
     var body: some View {
@@ -24,12 +24,10 @@ struct FinishView: View {
             Text("Perfect!")
                 .font(.custom("HelveticaNeue", size: 100))
                 .fontWeight(.ultraLight)
-            Button (action: { rootIsActive = false } ){
-                            Text("Pop to root")
-                        }
-//            NavigationLink(destination: ContentView()) {
-//                Text("Finish")
-//            }.navigationBarBackButtonHidden(true)
+            
+            NavigationLink(destination: ContentView()) {
+                Text("Finish")
+            }.navigationBarBackButtonHidden(true)
         }
             
     }

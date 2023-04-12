@@ -9,11 +9,11 @@ import SwiftUI
 
 struct CreateView: View {
     @State private var Todo: String = ""
-    @Binding var rootIsActive: Bool
-    
-    init(rootIsActive: Binding<Bool> = .constant(false)) {
-        _rootIsActive = rootIsActive
-    }
+//    @Binding var rootIsActive: Bool
+//    
+//    init(rootIsActive: Binding<Bool> = .constant(false)) {
+//        _rootIsActive = rootIsActive
+//    }
 //    @Binding var firstNaviLinkActive: Bool
     
     var body: some View {
@@ -34,7 +34,8 @@ struct CreateView: View {
     }
     // 타이머까지 다 돌아간 후에 todo를 TodoData.todo에 append
     var nextBtn: some View {
-        NavigationLink(destination: StopwatchView(todo: $Todo, rootIsActive: $rootIsActive)) {
+        NavigationLink(destination: StopwatchView(todo: $Todo)) {
+//            NavigationLink(destination: StopwatchView(todo: $Todo, rootIsActive: $rootIsActive)) {
             Text("Next")
                 .font(.custom("HelveticaNeue", size: 26))
                 .fontWeight(.light)

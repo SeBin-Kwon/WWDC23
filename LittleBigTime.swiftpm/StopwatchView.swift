@@ -19,37 +19,32 @@ struct StopwatchView: View {
     @State private var timer: Timer?
 //    @AppStorage("todo") private var todoData: TodoData()
     @State private var tododata: [ListItem] = []
+    @State private var insetAmount = 200.0
     
     @Binding var todo: String
-    @Binding var rootIsActive: Bool
+//    @Binding var rootIsActive: Bool
     
     init(todo: Binding<String> = .constant(""), rootIsActive: Binding<Bool> = .constant(false)) {
         _todo = todo
-        _rootIsActive = rootIsActive
+//        _rootIsActive = rootIsActive
     }
     
     var body: some View {
         VStack {
-            Text(todo)
-                .font(.custom("HelveticaNeue", size: 60))
-                .fontWeight(.ultraLight)
-                .padding(.bottom, 200.0)
-            //            Text("Read a book")
-            //                .font(.custom("HelveticaNeue", size: 60))
-            //                .fontWeight(.ultraLight)
-            //                .padding(.bottom, 200.0)
+//            Text(todo)
+//                .font(.custom("HelveticaNeue", size: 60))
+//                .fontWeight(.ultraLight)
+//                .padding(.bottom, 200.0)
+                        Text("Read a book")
+                            .font(.custom("HelveticaNeue", size: 60))
+                            .fontWeight(.ultraLight)
+                            .padding(.bottom, 100.0)
             
             ZStack {
-                //                Path { path in
-                //                                path.move(to: CGPoint(x: 500, y: 60))
-                //                                path.addLine(to: CGPoint(x: 550, y: 200))
-                //                                path.addLine(to: CGPoint(x: 300, y: 250))
-                //                                path.addLine(to: CGPoint(x: 130, y: 150))
-                //                                path.addLine(to: CGPoint(x: 250, y: 0))
-                //                                path.closeSubpath()
-                //                    }
-                //                .foregroundColor(ColorManager.waterColor)
-                //                .offset(x:160, y:210)
+                // MARK: 도형
+                Pentagon(insetAmount: insetAmount)
+                    .frame(minWidth: 200, idealWidth: 450, maxWidth:600, minHeight: 200, idealHeight: 450, maxHeight: 600, alignment: .center)
+                    .foregroundColor(ColorManager.waterColor)
                 
                 // MARK: 시간
                 Text("\(String(time))s")
@@ -57,6 +52,7 @@ struct StopwatchView: View {
                     .fontWeight(.ultraLight)
                 //                    .offset(y:-150)
                 //                .padding(.vertical, 150.0)
+                
             }
             
             // MARK: 스탑워치 버튼
@@ -70,6 +66,9 @@ struct StopwatchView: View {
                 }
                 isRunning.toggle()
                 isDoing = true
+                withAnimation {
+                    insetAmount = Double.random(in: 200...800)
+                }
             }) {
                 Text(isRunning ? "Stop" : "Start")
                     .font(.custom("HelveticaNeue", size: 26))
@@ -80,7 +79,7 @@ struct StopwatchView: View {
                     .accentColor(isRunning ? .red : .blue)
                     .animation(.easeInOut, value: isRunning)
             }
-            .padding(.top, 200)
+            .padding(.top, 100)
             
             // MARK: Finish 버튼
             finishBtn
@@ -91,7 +90,8 @@ struct StopwatchView: View {
     // 할일 다 끝내고 Finish 했을 때의 버튼
     var finishBtn: some View {
         // FinishView로 가기
-        NavigationLink(destination: FinishView(time: $time, rootIsActive: $rootIsActive), isActive: $gotoFinish) {
+        NavigationLink(destination: FinishView(time: $time), isActive: $gotoFinish) {
+//            NavigationLink(destination: FinishView(time: $time, rootIsActive: $rootIsActive), isActive: $gotoFinish) {
             
             Button(action: {
                 gotoFinish = true
@@ -144,6 +144,42 @@ class ListItem: ObservableObject, Identifiable {
     init(todo: String, time: Int) {
         self.todo = todo
         self.time = time
+    }
+}
+
+struct Pentagon: Shape {
+    var insetAmount: Double
+    
+    func path(in rect: CGRect) -> Path {
+//        var path = Path()
+        let width = rect.size.width
+                let height = rect.size.height
+
+                let radius = 0.5 * min(width, height) // Radius of the circumscribed circle
+//                let apothem = 0.5 * radius * CGFloat(tan(Double.pi / 5.0)) // Apothem length
+
+                var path = Path()
+                let startPoint = CGPoint(x: rect.midX, y: rect.minY + radius) // Starting point at the top center of the rectangle
+                path.move(to: startPoint)
+
+                for index in 1...6 {
+                    let angle = CGFloat(index) * 2.0 * .pi / 5.0
+                    let x = startPoint.x + radius * sin(angle)
+                    let y = startPoint.y + radius * cos(angle)
+                    let point = CGPoint(x: x, y: y)
+                    path.addLine(to: point)
+                }
+
+                path.closeSubpath()
+        
+//        path.move(to: CGPoint(x: 0, y: 90))
+//        path.addLine(to: CGPoint(x: 30, y: 200))
+//        path.addLine(to: CGPoint(x: 210, y: 150))
+//        path.addLine(to: CGPoint(x: 170, y: 10))
+//        path.addLine(to: CGPoint(x: 50, y: 20))
+//        path.closeSubpath()
+        return path
+//            .foregroundColor(ColorManager.waterColor)
     }
 }
 
