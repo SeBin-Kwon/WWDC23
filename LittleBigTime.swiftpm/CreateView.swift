@@ -9,15 +9,15 @@ import SwiftUI
 
 struct CreateView: View {
     @State private var Todo: String = ""
-//    @Binding var rootIsActive: Bool
-//    
-//    init(rootIsActive: Binding<Bool> = .constant(false)) {
-//        _rootIsActive = rootIsActive
-//    }
-//    @Binding var firstNaviLinkActive: Bool
+    @Binding var rootIsActive: Bool
+    //
+    //    init(rootIsActive: Binding<Bool> = .constant(false)) {
+    //        _rootIsActive = rootIsActive
+    //    }
+    //    @Binding var firstNaviLinkActive: Bool
     
     var body: some View {
-                VStack {
+        VStack {
             Text("What do you want to do?")
                 .font(.custom("HelveticaNeue", size: 60))
                 .fontWeight(.ultraLight)
@@ -25,17 +25,17 @@ struct CreateView: View {
             Image("seed")
                 .padding(.bottom, 100.0)
             TextField("Enter what you want to do", text: $Todo)
-                    .padding()
-                    .frame(minWidth:50, maxWidth: 800)
-//                    .overlay( RoundedRectangle(cornerRadius: 50) .stroke(Color.blue) )
-                    .background(RoundedRectangle(cornerRadius: 50).fill(Color(uiColor: .secondarySystemBackground)))
+                .padding()
+                .frame(minWidth:50, maxWidth: 800)
+            //                    .overlay( RoundedRectangle(cornerRadius: 50) .stroke(Color.blue) )
+                .background(RoundedRectangle(cornerRadius: 50).fill(Color(uiColor: .secondarySystemBackground)))
             nextBtn
-                }
+        }
     }
     // 타이머까지 다 돌아간 후에 todo를 TodoData.todo에 append
     var nextBtn: some View {
-        NavigationLink(destination: StopwatchView(todo: $Todo)) {
-//            NavigationLink(destination: StopwatchView(todo: $Todo, rootIsActive: $rootIsActive)) {
+        //        NavigationLink(destination: StopwatchView(todo: $Todo)) {
+        NavigationLink(destination: StopwatchView(todo: $Todo, rootIsActive: $rootIsActive)) {
             Text("Next")
                 .font(.custom("HelveticaNeue", size: 26))
                 .fontWeight(.light)
@@ -60,9 +60,9 @@ struct CreateView: View {
     
 }
 
-struct CreateView_Previews: PreviewProvider {
-    static var previews: some View {
-        CreateView()
-    }
-}
-
+//struct CreateView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        CreateView()
+//    }
+//}
+//

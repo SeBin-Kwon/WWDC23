@@ -5,7 +5,7 @@ struct MyApp: App {
     init() {
             Font.registerFonts()
             print("실행")
-
+//            var todolist = TodoList()
             //실제 폰트 이름 확인
             //폰트 파일명과 실제 이름이 다를 수 있음
 //            for family in UIFont.familyNames{
@@ -18,8 +18,10 @@ struct MyApp: App {
         }
     
     var body: some Scene {
+        var todolist = TodoList()
         WindowGroup {
             ContentView()
+                .environmentObject(todolist)
         }
     }
 }

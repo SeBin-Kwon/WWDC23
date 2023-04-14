@@ -10,7 +10,7 @@ import SwiftUI
 extension Font {
     static func registerFonts() {
 
-        self.register(name: "HelveticaNeue", withExtension: "ttc")
+        self.register(name: "HelveticaNeue", withExtension: "ttf")
     }
 
     static func register(name: String, withExtension: String) {
