@@ -19,12 +19,15 @@ struct StopwatchView: View {
     @State private var timer: Timer?
 //    @State private var tododata: [ListItem] = []
     @State private var insetAmount = 200.0
+    @State private var isAnimating = false
+    
     
     @EnvironmentObject var todolist: TodoList
-    @ObservedObject var timelist = TimeList()
+//    @ObservedObject var timelist = TimeList()
     
     @Binding var todo: String
     @Binding var rootIsActive: Bool
+    @Binding var needsUpdate: Bool
     
     //    init(todo: Binding<String> = .constant(""), rootIsActive: Binding<Bool> = .constant(false)) {
     //        _todo = todo
@@ -33,14 +36,24 @@ struct StopwatchView: View {
     
     var body: some View {
         VStack {
-            //            Text(todo)
-            //                .font(.custom("HelveticaNeue", size: 60))
-            //                .fontWeight(.ultraLight)
-            //                .padding(.bottom, 200.0)
-            Text("Read a book")
+            Text(todo)
                 .font(.custom("HelveticaNeue", size: 60))
                 .fontWeight(.ultraLight)
-                .padding(.bottom, 100.0)
+                .padding(.bottom, 200.0)
+//            Text("Read a book")
+//                .font(.custom("HelveticaNeue", size: 60))
+//                .fontWeight(.ultraLight)
+//                .padding(.bottom, 100.0)
+            Button("Animate") {
+                            isAnimating.toggle()
+                        }
+                        
+                        Rectangle()
+                                .foregroundColor(.red)
+                                .frame(width: 100, height: 200)
+                                .rotationEffect(Angle(degrees: isAnimating ? 30 : 0))
+                                .scaleEffect(x: isAnimating ? 0.5 : 1.0, y: isAnimating ? 2.0 : 1.0)
+                                .animation(Animation.easeInOut(duration: 1.0), value: isAnimating)
             
             ZStack {
                 // MARK: 도형
@@ -93,7 +106,7 @@ struct StopwatchView: View {
     var finishBtn: some View {
         // FinishView로 가기
         //        NavigationLink(destination: FinishView(time: $time), isActive: $gotoFinish) {
-        NavigationLink(destination: FinishView(rootIsActive: $rootIsActive), isActive: $gotoFinish) {
+        NavigationLink(destination: FinishView(rootIsActive: $rootIsActive, needsUpdate: $needsUpdate), isActive: $gotoFinish) {
             
             Button(action: {
                 gotoFinish = true
@@ -101,8 +114,9 @@ struct StopwatchView: View {
                 timer?.invalidate()
                 isRunning = false
                 // 유저의 할일과 시간 저장??
-                todolist.append(todo)
-                timelist.append(time)
+//                todolist.append(todo)
+//                timelist.append(time)
+                todolist.addItem(TodoData(todo: todo, time: time))
 //                tododata.append(ListItem(todo: todo, time: time))
             }) {
                 Text("Finish")
@@ -118,15 +132,15 @@ struct StopwatchView: View {
     }
 }
 
-class TodoList: ObservableObject, Identifiable {
-    @Published var todolist: [String] = []
-    var id: UUID = UUID()
-}
+//class TodoList: ObservableObject, Identifiable {
+//    @Published var todolist: [String] = []
+//    var id: UUID = UUID()
+//}
 
-class TimeList: ObservableObject, Identifiable {
-    @Published var timelist: [Int] = []
-    var id: UUID = UUID()
-}
+//class TimeList: ObservableObject, Identifiable {
+//    @Published var timelist: [Int] = []
+//    var id: UUID = UUID()
+//}
 
 //class ListItem: ObservableObject, Identifiable {
 //    @Published var todo: String

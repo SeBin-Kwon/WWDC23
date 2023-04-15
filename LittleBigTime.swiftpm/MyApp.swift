@@ -18,7 +18,7 @@ struct MyApp: App {
         }
     
     var body: some Scene {
-        var todolist = TodoList()
+        let todolist = TodoList()
         WindowGroup {
             ContentView()
                 .environmentObject(todolist)
