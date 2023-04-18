@@ -1,33 +1,96 @@
 import SwiftUI
 
+struct PendulumAnimation: View {
+    @State private var rotationAngle: Angle = .degrees(0.0)
+    @State private var direction: CGFloat = 1.0
+    @State private var dragOffset: CGSize = .zero
+    let imageName: String
+    let amplitude: CGFloat
+    let animationDuration: Double
+
+    var body: some View {
+        Image(imageName)
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .rotationEffect(rotationAngle, anchor: .bottom)
+            .animation(Animation.easeInOut(duration: animationDuration).repeatForever(autoreverses: true), value: rotationAngle)
+            .gesture(DragGesture()
+                .onChanged { value in
+                    let dragAngle = Angle(radians: Double(value.translation.width) * 0.01)
+                    let newRotationAngle = Angle.degrees(amplitude * Double(direction)) + dragAngle
+                                        rotationAngle = clampRotationAngle(newRotationAngle)
+                }
+                .onEnded { value in
+                    rotationAngle = .degrees(0)
+                }
+            )
+            .onAppear {
+                startPendulumAnimation()
+            }
+    }
+
+    private func startPendulumAnimation() {
+        withAnimation(Animation.easeInOut(duration: animationDuration).repeatForever(autoreverses: true)) {
+            rotationAngle = .degrees(amplitude * direction)
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + animationDuration) {
+            direction *= -1
+            rotationAngle = .degrees(0)
+            startPendulumAnimation()
+        }
+    }
+    
+    private func clampRotationAngle(_ angle: Angle) -> Angle {
+            let clampedAngle = min(max(angle.degrees, -90.0), 90.0)
+            return .degrees(clampedAngle)
+        }
+}
+
 struct ContentView: View {
     @State var rootIsActive: Bool = false
 //    @Binding var tododata: [ListItem]
     @EnvironmentObject var todolist: TodoList
-//    @ObservedObject var todolist: TodoList
     @State private var needsUpdate: Bool = false
     @State private var allTime: Int = 0
+//    @State private var isAnimated: Bool = false
+    
     var body: some View {
         NavigationView {
             ZStack {
-            // 레벨마다 이미지 다르게 넣기
+            // MARK: 이미지
             switch todolist.todoItems.count {
             case 0 :
-                Image("lv0")
+                PendulumAnimation(imageName: "lv0", amplitude: 10.0, animationDuration: 3.0)
+                    .frame(width: 50)
+                    .offset(x: 0, y: 100)
             case 1:
-                Image("lv1")
+                PendulumAnimation(imageName: "lv1", amplitude: 10.0, animationDuration: 1.6)
+                    .frame(width: 200)
+                    .offset(x: 0, y: 80)
             case 2:
-                Image("lv2")
+                PendulumAnimation(imageName: "lv2", amplitude: 7.0, animationDuration: 1.6)
+                    .frame(width: 300)
+                    .offset(x: 0, y: 10)
             case 3:
-                Image("lv3")
+                PendulumAnimation(imageName: "lv3", amplitude: 5.0, animationDuration: 1.7)
+                    .frame(width: 500)
+                    .offset(x: 0, y: 70)
             case 4:
-                Image("lv4")
+                PendulumAnimation(imageName: "lv4", amplitude: 5.0, animationDuration: 1.8)
+                    .frame(width: 700)
+                    .offset(x: -32, y: 60)
             case 5:
-                Image("lv5")
+                PendulumAnimation(imageName: "lv5", amplitude: 4.0, animationDuration: 2.0)
+                    .frame(width: 800)
+                    .offset(x: -35, y: 60)
             case 6:
-                Image("lv6")
+                PendulumAnimation(imageName: "lv6", amplitude: 3.0, animationDuration: 2.0)
+                    .frame(width: 1000)
+                    .offset(x: -30, y: 60)
             default:
-                Image("lv0")
+                PendulumAnimation(imageName: "lv6", amplitude: 3.0, animationDuration: 2.0)
+                    .frame(width: 1000)
+                    .offset(x: -30, y: 60)
             }
             VStack {
                 Text("Little Big Time")
@@ -36,22 +99,22 @@ struct ContentView: View {
                     .padding(.top, 150.0)
                     .padding(.bottom, 350.0)
                 
-                Text("개수: \(todolist.todoItems.count)")
-                    .font(.custom("HelveticaNeue", size: 50))
+//                Text("개수: \(todolist.todoItems.count)")
+//                    .font(.custom("HelveticaNeue", size: 50))
+//                    .fontWeight(.ultraLight)
+                
+                
+                Text("\(allTime)s")
+                    .font(.custom("HelveticaNeue", size: 100))
                     .fontWeight(.ultraLight)
+                    .offset(x: 0, y: 200)
                 
-                
-                Text("총 시간: \(allTime)s")
-                    .font(.custom("HelveticaNeue", size: 50))
-                    .fontWeight(.ultraLight)
-                
-                
-                ForEach(todolist.todoItems, id: \.self) {
-                    todoitem in
-                    Text("한일: \(todoitem.todo),시간:  \(todoitem.time)")
-                        .font(.custom("HelveticaNeue", size: 50))
-                        .fontWeight(.ultraLight)
-                }
+//                ForEach(todolist.todoItems, id: \.self) {
+//                    todoitem in
+//                    Text("한일: \(todoitem.todo),시간:  \(todoitem.time)")
+//                        .font(.custom("HelveticaNeue", size: 50))
+//                        .fontWeight(.ultraLight)
+//                }
                 
                 Spacer()
                 NavigationLink(destination: CreateView(rootIsActive: $rootIsActive, needsUpdate: $needsUpdate), isActive: $rootIsActive) {
@@ -67,7 +130,7 @@ struct ContentView: View {
                             .accentColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
                     }
                 }
-                    .navigationBarBackButtonHidden(true)
+                .navigationBarBackButtonHidden(true)
             }
             }
             .onChange(of: needsUpdate, perform: { _ in
@@ -81,8 +144,8 @@ struct ContentView: View {
                         }
             .padding(.bottom, 150.0)
         }
-        .navigationViewStyle(.stack)
-        //        .accentColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
+        .navigationViewStyle(StackNavigationViewStyle())
+        .animation(.none)
     }
-    // 리스트 개수가 0이면 swich문
 }
+ 

@@ -22,12 +22,12 @@ struct FinishView: View {
     
     var body: some View {
         VStack {
-            ForEach(todolist.todoItems, id: \.self) {
-                todoitem in
-                Text("\(todoitem.todo),\(todoitem.time)")
-                    .font(.custom("HelveticaNeue", size: 100))
-                    .fontWeight(.ultraLight)
-            }
+//            ForEach(todolist.todoItems, id: \.self) {
+//                todoitem in
+//                Text("\(todoitem.todo),\(todoitem.time)")
+//                    .font(.custom("HelveticaNeue", size: 100))
+//                    .fontWeight(.ultraLight)
+//            }
             Text("Perfect!")
                 .font(.custom("HelveticaNeue", size: 100))
                 .fontWeight(.ultraLight)
@@ -35,6 +35,70 @@ struct FinishView: View {
                     rootIsActive = false
                     needsUpdate = true
                 }
+            
+            switch todolist.todoItems.count {
+            case 1 :
+                Text("The seeds have grown!")
+                    .font(.custom("HelveticaNeue", size: 50))
+                    .fontWeight(.ultraLight)
+                    .onTapGesture {
+                        rootIsActive = false
+                        needsUpdate = true
+                    }
+            case 2:
+                Text("The sprouts have grown!")
+                    .font(.custom("HelveticaNeue", size: 50))
+                    .fontWeight(.ultraLight)
+                    .onTapGesture {
+                        rootIsActive = false
+                        needsUpdate = true
+                    }
+            case 3:
+                Text("The sprouts has grown!")
+                    .font(.custom("HelveticaNeue", size: 50))
+                    .fontWeight(.ultraLight)
+                    .onTapGesture {
+                        rootIsActive = false
+                        needsUpdate = true
+                    }
+            case 4:
+                Text("The tree has grown!")
+                    .font(.custom("HelveticaNeue", size: 50))
+                    .fontWeight(.ultraLight)
+                    .onTapGesture {
+                        rootIsActive = false
+                        needsUpdate = true
+                    }
+            case 5:
+                Text("The tree has blossomed!")
+                    .font(.custom("HelveticaNeue", size: 50))
+                    .fontWeight(.ultraLight)
+                    .onTapGesture {
+                        rootIsActive = false
+                        needsUpdate = true
+                    }
+            case 6:
+                Text("The tree bore fruit!")
+                    .font(.custom("HelveticaNeue", size: 50))
+                    .fontWeight(.ultraLight)
+                    .onTapGesture {
+                        rootIsActive = false
+                        needsUpdate = true
+                    }
+            default:
+                Text("You're doing great! Keep going!")
+                    .font(.custom("HelveticaNeue", size: 50))
+                    .fontWeight(.ultraLight)
+                    .onTapGesture {
+                        rootIsActive = false
+                        needsUpdate = true
+                    }
+            }
+//            if todolist.todoItems.count >= 7 {
+//                Image("lv6")
+//                    .resizable()
+//                    .frame(maxWidth: 500)
+//            }
             
             //            NavigationLink(destination: ContentView()) {
             //                Text("Finish")

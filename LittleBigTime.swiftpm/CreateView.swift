@@ -24,26 +24,7 @@ struct CreateView: View {
                 .font(.custom("HelveticaNeue", size: 60))
                 .fontWeight(.ultraLight)
                 .padding(.bottom, 150.0)
-            
-//            switch todolist.todoItems.count {
-//            case 0 :
-//                Image("lv0")
-//            case 1:
-//                Image("lv1")
-//            case 2:
-//                Image("lv2")
-//            case 3:
-//                Image("lv3")
-//            case 4:
-//                Image("lv4")
-//            case 5:
-//                Image("lv5")
-//            case 6:
-//                Image("lv6")
-//            default:
-//                Image("lv0")
-//            }
-//            .padding(.bottom, 100.0)
+
             TextField("Enter what you want to do", text: $Todo)
                 .padding()
                 .frame(minWidth:50, maxWidth: 800)
