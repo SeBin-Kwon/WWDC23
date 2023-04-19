@@ -31,34 +31,14 @@ struct StopwatchView: View {
     @State private var isAnimatingFirst = true
     
     @EnvironmentObject var todolist: TodoList
-    //    @ObservedObject var timelist = TimeList()
     
     @Binding var todo: String
     @Binding var rootIsActive: Bool
     @Binding var needsUpdate: Bool
     
-    //    init(todo: Binding<String> = .constant(""), rootIsActive: Binding<Bool> = .constant(false)) {
-    //        _todo = todo
-    //        _rootIsActive = rootIsActive
-    //    }
     
     var body: some View {
         VStack {
-            //            Text("Read a book")
-            //                .font(.custom("HelveticaNeue", size: 60))
-            //                .fontWeight(.ultraLight)
-            //                .padding(.bottom, 100.0)
-            
-            //            Button("Animate") {
-            //                            isAnimating.toggle()
-            //                        }
-            //
-            //                        Rectangle()
-            //                                .foregroundColor(.red)
-            //                                .frame(width: 100, height: 200)
-            //                                .rotationEffect(Angle(degrees: isAnimating ? 30 : 0))
-            //                                .scaleEffect(x: isAnimating ? 0.5 : 1.0, y: isAnimating ? 2.0 : 1.0)
-            //                                .animation(Animation.easeInOut(duration: 1.0), value: isAnimating)
             
             ZStack {
                 // MARK: 햇빛, 물
@@ -177,10 +157,6 @@ struct StopwatchView: View {
                         .frame(width: 800, height: 800)
                         .offset(x: -20, y: 45)
                 }
-                //                Pentagon(insetAmount: insetAmount)
-                //                    .frame(minWidth: 200, idealWidth: 450, maxWidth:600, minHeight: 200, idealHeight: 450, maxHeight: 600, alignment: .center)
-                //                    .foregroundColor(ColorManager.waterColor)
-                //
                 
                 // MARK: 할일
                 Text(todo)
@@ -188,7 +164,7 @@ struct StopwatchView: View {
                     .font(.custom("HelveticaNeue", size: 70))
                     .fontWeight(.ultraLight)
                     .padding(.bottom, 60.0)
-                    .animation(.none)
+                    .animation(.none, value: isRunning)
                     .offset(y: -400)
                 // MARK: 시간
                 Text("\(String(time))s")
@@ -196,7 +172,7 @@ struct StopwatchView: View {
                     .font(.custom("HelveticaNeue", size: 100))
                     .fontWeight(.ultraLight)
                     .offset(y:300)
-                    .animation(.none)
+                    .animation(.none, value: isRunning)
                 
             }
             
@@ -239,12 +215,12 @@ struct StopwatchView: View {
                     .animation(.easeInOut, value: isRunning)
             }
 //                        .padding(.top)
-            .animation(.none)
+            .animation(.none, value: isRunning)
             
             // MARK: Finish 버튼
             finishBtn
                 .padding(.top,5)
-                .animation(.none)
+                .animation(.none, value: isRunning)
             
         }
         .onAppear {
@@ -288,26 +264,7 @@ struct StopwatchView: View {
             }
         }.disabled(!isDoing)
     }
-//    func createPath1() -> Path {
-//        var path = Path()
-//            path.move(to: CGPoint(x: 1100, y: -700))
-//            path.addLine(to: CGPoint(x: 400, y: 730))
-//            path = path.trim(from: startAmount, to: endAmount)
-//            .stroke(style: StrokeStyle(lineWidth: 500))
-//            .foregroundColor(ColorManager.lightColor)
-//            .frame(width: 800, height: 800)
-//        return path
-//    }
-//    func createPath2() -> Path {
-//        var path = Path()
-//            path.move(to: CGPoint(x: 400, y: -700))
-//            path.addLine(to: CGPoint(x: 400, y: 780))
-//            path = path.trim(from: startAmount, to: endAmount)
-//            .stroke(style: StrokeStyle(lineWidth: 300))
-//            .foregroundColor(ColorManager.waterColor)
-//            .frame(width: 800, height: 800) as! Path
-//        return path
-//    }
+
     
     func animate() {
         guard !animationPaused else { return }
@@ -353,60 +310,3 @@ struct StopwatchView: View {
         }
     }
 }
-
-
-//class TodoList: ObservableObject, Identifiable {
-//    @Published var todolist: [String] = []
-//    var id: UUID = UUID()
-//}
-
-//class TimeList: ObservableObject, Identifiable {
-//    @Published var timelist: [Int] = []
-//    var id: UUID = UUID()
-//}
-
-//class ListItem: ObservableObject, Identifiable {
-//    @Published var todo: String
-//    @Published var time: Int
-//    var id: UUID = UUID()
-//
-//    init(todo: String, time: Int) {
-//        self.todo = todo
-//        self.time = time
-//    }
-//}
-
-
-//struct Pentagon: Shape {
-//    var insetAmount: Double
-//
-//    func path(in rect: CGRect) -> Path {
-//        //        var path = Path()
-//        let width = rect.size.width
-//        let height = rect.size.height
-//
-//        let radius = 0.5 * min(width, height) // Radius of the circumscribed circle
-//        //                let apothem = 0.5 * radius * CGFloat(tan(Double.pi / 5.0)) // Apothem length
-//
-//        var path = Path()
-//        let startPoint = CGPoint(x: rect.midX, y: rect.minY + radius) // Starting point at the top center of the rectangle
-//        path.move(to: startPoint)
-//
-//        for index in 1...6 {
-//            let angle = CGFloat(index) * 2.0 * .pi / 5.0
-//            let x = startPoint.x + radius * sin(angle)
-//            let y = startPoint.y + radius * cos(angle)
-//            let point = CGPoint(x: x, y: y)
-//            path.addLine(to: point)
-//        }
-//
-//        path.closeSubpath()
-//        return path
-//    }
-//}
-
-//struct StopwatchView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        StopwatchView()
-//    }
-//}

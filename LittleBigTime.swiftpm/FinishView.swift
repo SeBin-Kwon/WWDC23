@@ -38,10 +38,10 @@ struct FinishView: View {
                     .font(.custom("HelveticaNeue", size: 100))
                     .fontWeight(.ultraLight)
                     .padding(.bottom)
-                    .onTapGesture {
-                        rootIsActive = false
-                        needsUpdate = true
-                    }
+//                    .onTapGesture {
+//                        rootIsActive = false
+//                        needsUpdate = true
+//                    }
                     .opacity(isFirst ? 1 : 0)
                     .animation(Animation.easeInOut(duration: 1), value: isFirst)
                 
@@ -51,10 +51,10 @@ struct FinishView: View {
                         .tracking(2)
                         .font(.custom("HelveticaNeue", size: 50))
                         .fontWeight(.ultraLight)
-                        .onTapGesture {
-                            rootIsActive = false
-                            needsUpdate = true
-                        }
+//                        .onTapGesture {
+//                            rootIsActive = false
+//                            needsUpdate = true
+//                        }
                         .opacity(isFirst ? 1 : 0)
                         .animation(Animation.easeInOut(duration: 1).delay(1), value: isFirst)
                 case 2:
@@ -62,10 +62,10 @@ struct FinishView: View {
                         .tracking(2)
                         .font(.custom("HelveticaNeue", size: 50))
                         .fontWeight(.ultraLight)
-                        .onTapGesture {
-                            rootIsActive = false
-                            needsUpdate = true
-                        }
+//                        .onTapGesture {
+//                            rootIsActive = false
+//                            needsUpdate = true
+//                        }
                         .opacity(isFirst ? 1 : 0)
                         .animation(Animation.easeInOut(duration: 1).delay(1), value: isFirst)
                 case 3:
@@ -73,10 +73,6 @@ struct FinishView: View {
                         .tracking(2)
                         .font(.custom("HelveticaNeue", size: 50))
                         .fontWeight(.ultraLight)
-                        .onTapGesture {
-                            rootIsActive = false
-                            needsUpdate = true
-                        }
                         .opacity(isFirst ? 1 : 0)
                         .animation(Animation.easeInOut(duration: 1).delay(1), value: isFirst)
                 case 4:
@@ -84,10 +80,6 @@ struct FinishView: View {
                         .tracking(2)
                         .font(.custom("HelveticaNeue", size: 50))
                         .fontWeight(.ultraLight)
-                        .onTapGesture {
-                            rootIsActive = false
-                            needsUpdate = true
-                        }
                         .opacity(isFirst ? 1 : 0)
                         .animation(Animation.easeInOut(duration: 1).delay(1), value: isFirst)
                 case 5:
@@ -95,10 +87,6 @@ struct FinishView: View {
                         .tracking(2)
                         .font(.custom("HelveticaNeue", size: 50))
                         .fontWeight(.ultraLight)
-                        .onTapGesture {
-                            rootIsActive = false
-                            needsUpdate = true
-                        }
                         .opacity(isFirst ? 1 : 0)
                         .animation(Animation.easeInOut(duration: 1).delay(1), value: isFirst)
                 case 6:
@@ -106,10 +94,6 @@ struct FinishView: View {
                         .tracking(2)
                         .font(.custom("HelveticaNeue", size: 50))
                         .fontWeight(.ultraLight)
-                        .onTapGesture {
-                            rootIsActive = false
-                            needsUpdate = true
-                        }
                         .opacity(isFirst ? 1 : 0)
                         .animation(Animation.easeInOut(duration: 1).delay(1), value: isFirst)
                 default:
@@ -117,10 +101,6 @@ struct FinishView: View {
                         .tracking(2)
                         .font(.custom("HelveticaNeue", size: 50))
                         .fontWeight(.ultraLight)
-                        .onTapGesture {
-                            rootIsActive = false
-                            needsUpdate = true
-                        }
                         .opacity(isFirst ? 1 : 0)
                         .animation(Animation.easeInOut(duration: 1).delay(1), value: isFirst)
                 }
@@ -139,9 +119,9 @@ struct FinishView: View {
                 }
             }
             VStack {
-                Text("Remember that the small moments, though they may seem insignificant\nare precious building blocks that shape our lives over time.")
+                Text("Remember that the small moments,\nthough they may seem insignificant are precious\nbuilding blocks that shape our lives over time.")
                     .tracking(2)
-                    .font(.custom("HelveticaNeue", size: 30))
+                    .font(.custom("HelveticaNeue", size: 40))
                     .fontWeight(.ultraLight)
                     .multilineTextAlignment(.center)
                     .opacity(isSecond ? 1 : 0)
@@ -155,7 +135,7 @@ struct FinishView: View {
                 }) {
                     Text("Back to home")
                         .tracking(1)
-                        .font(.custom("HelveticaNeue", size: 35))
+                        .font(.custom("HelveticaNeue", size: 28))
                         .fontWeight(.light)
                         .padding(.horizontal, 60.0)
                         .padding(.vertical)
@@ -164,7 +144,7 @@ struct FinishView: View {
                         .opacity(isSecond ? 1 : 0)
                         .animation(Animation.easeInOut(duration: 1).delay(2), value: isSecond)
                 }
-            }
+            }.offset(y:100)
         }
         .navigationBarBackButtonHidden(true)
     }
@@ -175,14 +155,3 @@ struct FinishView: View {
     //    }
     //}
 }
-
-//            if todolist.todoItems.count >= 7 {
-//                Image("lv6")
-//                    .resizable()
-//                    .frame(maxWidth: 500)
-//            }
-
-//            NavigationLink(destination: ContentView()) {
-//                Text("Finish")
-//            }.navigationBarBackButtonHidden(true)
-//        }

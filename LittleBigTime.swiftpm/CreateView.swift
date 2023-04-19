@@ -12,11 +12,6 @@ struct CreateView: View {
     @Binding var rootIsActive: Bool
     @Binding var needsUpdate: Bool
     @EnvironmentObject var todolist: TodoList
-    //
-    //    init(rootIsActive: Binding<Bool> = .constant(false)) {
-    //        _rootIsActive = rootIsActive
-    //    }
-    //    @Binding var firstNaviLinkActive: Bool
     
     var body: some View {
         VStack {
@@ -25,27 +20,29 @@ struct CreateView: View {
                 .font(.custom("HelveticaNeue", size: 60))
                 .fontWeight(.ultraLight)
                 .padding(.bottom, 13)
-            if todolist.todoItems.count == 0 {
                 Text("Why not try doing something simple, yet valuable in your life?\nIt's worth a shot!")
                     .tracking(1.5)
                     .font(.custom("HelveticaNeue", size: 25))
                     .fontWeight(.ultraLight)
                     .lineSpacing(6)
-                    .padding(.bottom, 140.0)
+                    .padding(.bottom, 80.0)
                     .multilineTextAlignment(.center)
-            }
             TextField("Enter what you want to do", text: $Todo)
-                .padding()
-                .frame(minWidth:50, maxWidth: 800)
-            //                    .overlay( RoundedRectangle(cornerRadius: 50) .stroke(Color.blue) )
+                .padding(15)
+                .frame(width: 800)
                 .background(RoundedRectangle(cornerRadius: 50).fill(Color(uiColor: .secondarySystemBackground)))
-            nextBtn
+            
+            HStack {
+                Spacer()
+                nextBtn
+                    .padding(.top, 80.0)
+                    .padding(.trailing, 95.0)
+            }
         }
-        .offset(y: -100)
+        .offset(y: -50)
     }
     // 타이머까지 다 돌아간 후에 todo를 TodoData.todo에 append
     var nextBtn: some View {
-        //        NavigationLink(destination: StopwatchView(todo: $Todo)) {
         NavigationLink(destination: StopwatchView(todo: $Todo, rootIsActive: $rootIsActive, needsUpdate: $needsUpdate)) {
             Text("Next")
                 .tracking(1)
@@ -57,7 +54,7 @@ struct CreateView: View {
                 .accentColor(isTodo() ? /*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/ : .gray)
                 .animation(.easeInOut, value: isTodo())
         }
-        .offset(x:330,y:150)
+//        .offset(x:330,y:150)
         .padding(.horizontal, 20)
         // 값이 없다면 비활성화
         .disabled(!isTodo())
