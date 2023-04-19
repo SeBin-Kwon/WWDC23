@@ -68,12 +68,22 @@ struct StopwatchView: View {
                     Path { path in
                         switch cnt {
                         case 0: path.move(to: CGPoint(x: 1100, y: -700))
-                            path.addLine(to: CGPoint(x: 400, y: 730))
+                            path.addLine(to: CGPoint(x: 350, y: 580))
+                        case 1: path.move(to: CGPoint(x: 1100, y: -700))
+                            path.addLine(to: CGPoint(x: 350, y: 580))
+                        case 2: path.move(to: CGPoint(x: 1100, y: -700))
+                            path.addLine(to: CGPoint(x: 350, y: 620))
+                        case 3: path.move(to: CGPoint(x: 1100, y: -700))
+                            path.addLine(to: CGPoint(x: 350, y: 650))
+                        case 4: path.move(to: CGPoint(x: 1100, y: -700))
+                            path.addLine(to: CGPoint(x: 400, y: 800))
+                        case 5: path.move(to: CGPoint(x: 1100, y: -700))
+                            path.addLine(to: CGPoint(x: 400, y: 850))
                         default: path.move(to: CGPoint(x: 1100, y: -700))
-                            path.addLine(to: CGPoint(x: 400, y: 730))
+                            path.addLine(to: CGPoint(x: 400, y: 910))
                         }
-                        path.move(to: CGPoint(x: 1100, y: -700))
-                        path.addLine(to: CGPoint(x: 400, y: 730))
+//                        path.move(to: CGPoint(x: 1100, y: -700))
+//                        path.addLine(to: CGPoint(x: 400, y: 730))
                     }
                     .trim(from: startAmount, to: endAmount)
                     .stroke(style: StrokeStyle(lineWidth: 500))
@@ -86,8 +96,24 @@ struct StopwatchView: View {
                     }
                 } else {
                     Path { path in
-                        path.move(to: CGPoint(x: 400, y: -700))
-                        path.addLine(to: CGPoint(x: 400, y: 780))
+                        switch cnt {
+                        case 0: path.move(to: CGPoint(x: 400, y: -700))
+                            path.addLine(to: CGPoint(x: 400, y: 580))
+                        case 1: path.move(to: CGPoint(x: 400, y: -700))
+                            path.addLine(to: CGPoint(x: 400, y: 600))
+                        case 2: path.move(to: CGPoint(x: 400, y: -700))
+                            path.addLine(to: CGPoint(x: 400, y: 630))
+                        case 3: path.move(to: CGPoint(x: 400, y: -700))
+                            path.addLine(to: CGPoint(x: 400, y: 640))
+                        case 4: path.move(to: CGPoint(x: 400, y: -700))
+                            path.addLine(to: CGPoint(x: 400, y: 810))
+                        case 5: path.move(to: CGPoint(x: 400, y: -700))
+                            path.addLine(to: CGPoint(x: 400, y: 840))
+                        default: path.move(to: CGPoint(x: 400, y: -700))
+                            path.addLine(to: CGPoint(x: 400, y: 900))
+                        }
+//                        path.move(to: CGPoint(x: 400, y: -700))
+//                        path.addLine(to: CGPoint(x: 400, y: 780))
                     }
                     .trim(from: startAmount, to: endAmount)
                     .stroke(style: StrokeStyle(lineWidth: 300))
@@ -100,7 +126,7 @@ struct StopwatchView: View {
                     }
                 }
                 
-                // MARK: 도형
+                // MARK: 식물
                 switch cnt {
                 case 0 :
                     Image("lv0")
@@ -113,36 +139,43 @@ struct StopwatchView: View {
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 200, height: 200)
+                        .offset(x: 0, y: 60)
                 case 2:
                     Image("lv2")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(width: 300, height: 300)
+                        .frame(width: 350, height: 350)
+                        .offset(x: 0, y: 5)
                 case 3:
                     Image("lv3")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 500, height: 500)
+                        .offset(x: 0, y: -60)
                 case 4:
                     Image("lv4")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(width: 600, height: 600)
+                        .frame(width: 650, height: 650)
+                        .offset(x: -15, y: 30)
                 case 5:
                     Image("lv5")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(width: 700, height: 700)
+                        .frame(width: 700, height: 730)
+                        .offset(x: -20, y: 30)
                 case 6:
                     Image("lv6")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 800, height: 800)
+                        .offset(x: -20, y: 45)
                 default:
                     Image("lv6")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 800, height: 800)
+                        .offset(x: -20, y: 45)
                 }
                 //                Pentagon(insetAmount: insetAmount)
                 //                    .frame(minWidth: 200, idealWidth: 450, maxWidth:600, minHeight: 200, idealHeight: 450, maxHeight: 600, alignment: .center)
@@ -151,13 +184,15 @@ struct StopwatchView: View {
                 
                 // MARK: 할일
                 Text(todo)
-                    .font(.custom("HelveticaNeue", size: 60))
+                    .tracking(2)
+                    .font(.custom("HelveticaNeue", size: 70))
                     .fontWeight(.ultraLight)
                     .padding(.bottom, 60.0)
                     .animation(.none)
                     .offset(y: -400)
                 // MARK: 시간
                 Text("\(String(time))s")
+                    .tracking(3)
                     .font(.custom("HelveticaNeue", size: 100))
                     .fontWeight(.ultraLight)
                     .offset(y:300)
@@ -194,6 +229,7 @@ struct StopwatchView: View {
                 }
             }) {
                 Text(isRunning ? "Stop" : "Start")
+                    .tracking(1)
                     .font(.custom("HelveticaNeue", size: 26))
                     .fontWeight(.light)
                     .padding(.horizontal, 45.0)
@@ -202,11 +238,12 @@ struct StopwatchView: View {
                     .accentColor(isRunning ? .red : .blue)
                     .animation(.easeInOut, value: isRunning)
             }
-            //            .padding(.top, 50)
+//                        .padding(.top)
             .animation(.none)
             
             // MARK: Finish 버튼
             finishBtn
+                .padding(.top,5)
                 .animation(.none)
             
         }
@@ -233,15 +270,23 @@ struct StopwatchView: View {
                 //                tododata.append(ListItem(todo: todo, time: time))
             }) {
                 Text("Finish")
+                    .tracking(1)
                     .font(.custom("HelveticaNeue", size: 26))
                     .fontWeight(.light)
+                    .foregroundColor(isDoing ? .white : .gray)
                     .padding(.horizontal, 45.0)
                     .padding(.vertical)
-                    .background(Capsule().strokeBorder())
-                    .accentColor(isDoing ? .green : .gray)
+                    .overlay(
+                        Capsule()
+                            .stroke(Color.gray, lineWidth: isDoing ? 0 : 2)
+                    )
+//                    .background(Capsule().strokeBorder())
+//                    .accentColor(isDoing ? .green : .gray)
+                    .background(isDoing ? .green : .clear)
+                    .cornerRadius(50)
                     .animation(.easeInOut, value: isDoing)
             }
-        }
+        }.disabled(!isDoing)
     }
 //    func createPath1() -> Path {
 //        var path = Path()

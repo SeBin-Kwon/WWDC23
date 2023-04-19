@@ -62,7 +62,7 @@ struct ContentView: View {
             case 0 :
                 PendulumAnimation(imageName: "lv0", amplitude: 10.0, animationDuration: 3.0)
                     .frame(width: 50)
-                    .offset(x: 0, y: 100)
+                    .offset(x: 0, y: 90)
             case 1:
                 PendulumAnimation(imageName: "lv1", amplitude: 10.0, animationDuration: 1.6)
                     .frame(width: 200)
@@ -94,20 +94,28 @@ struct ContentView: View {
             }
             VStack {
                 Text("Little Big Time")
+                    .tracking(5)
                     .font(.custom("HelveticaNeue", size: 95))
                     .fontWeight(.ultraLight)
                     .padding(.top, 150.0)
                     .padding(.bottom, 350.0)
                 
-//                Text("개수: \(todolist.todoItems.count)")
-//                    .font(.custom("HelveticaNeue", size: 50))
-//                    .fontWeight(.ultraLight)
-                
-                
-                Text("\(allTime)s")
-                    .font(.custom("HelveticaNeue", size: 100))
-                    .fontWeight(.ultraLight)
-                    .offset(x: 0, y: 200)
+                if todolist.todoItems.count == 0 {
+                    Text("Let's grow a small seed together, and who knows,\nthat small beginning might lead to bigger dreams.")
+                        .tracking(2.5)
+                        .font(.custom("HelveticaNeue", size: 25))
+                        .fontWeight(.ultraLight)
+                        .multilineTextAlignment(.center)
+                        .offset(x: 0, y: 130)
+                        .lineSpacing(7)
+                        
+                } else {
+                    Text("\(allTime)s")
+                        .tracking(3)
+                        .font(.custom("HelveticaNeue", size: 100))
+                        .fontWeight(.ultraLight)
+                        .offset(x: 0, y: 200)
+                }
                 
 //                ForEach(todolist.todoItems, id: \.self) {
 //                    todoitem in
@@ -122,12 +130,14 @@ struct ContentView: View {
                         rootIsActive = true
                     }) {
                         Text("Start")
-                            .font(.custom("HelveticaNeue", size: 40))
+                            .tracking(1)
+                            .font(.custom("HelveticaNeue", size: 35))
                             .fontWeight(.light)
                             .padding(.horizontal, 60.0)
                             .padding(.vertical)
+                            .accentColor(.blue)
                             .background(Capsule().strokeBorder())
-                            .accentColor(/*@START_MENU_TOKEN@*/.blue/*@END_MENU_TOKEN@*/)
+                            
                     }
                 }
                 .navigationBarBackButtonHidden(true)
@@ -142,7 +152,7 @@ struct ContentView: View {
                 self.needsUpdate.toggle()
                 allTime = todolist.todoItems.reduce(0) { $0 + $1.time }
                         }
-            .padding(.bottom, 150.0)
+            .padding(.bottom, 190.0)
         }
         .navigationViewStyle(StackNavigationViewStyle())
         .animation(.none)
